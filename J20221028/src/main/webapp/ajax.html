@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax.html</title>
+</head>
+<body>
+	<h3>Ajax호출.</h3>
+	<button>요청</button>
+	<script>
+		//페이지를 고치지않고 원하는부분만 고치는게 ajax
+		document.querySelector('button').addEventListener('click',loadData)
+		function loadData(){
+		let ajax = new XMLHttpRequest();
+		ajax.open('get', 'data/MOCK_DATA.json');
+		ajax.send(); // 요청
+		ajax.onload = loadCallback; //event를 this객체.
+		
+		}
+
+		// ajax 객체에 로드이벤트 발생 할 때 실행할 콜백함수. 
+		function loadCallback(){
+			// console.log(ajax.responseText);
+
+			let data =JSON.parse(this.response); // object 파일로 변경하는 함수 parse
+			let table = document.createElement('table');
+			let tbody = document.createElement('table');
+
+			data.forEach(row => {
+				tbody.append(makeTr(row));
+			});
+			table.append(tbody);
+			document.getElementsByTagName('body')[0].append(table);
+		}
+		// data 한건을 tr 생성해주는 함수.
+		function makeTr(obj){
+			let tr = document.createElement('tr');
+			for(let field in obj){
+				let td = document.createElement('td');
+				let txt = document.createTextNode(obj[field]);
+				td.append(txt);
+				tr.append(td);
+			}
+			return tr;
+		}
+	</script>
+</body>
+</html>
