@@ -18,16 +18,17 @@ public class DAO {
 	public Connection getConnect() {
 	try {
 		
-		Properties prop = new Properties();
-		prop.load(new FileReader("C:/Temp/database.properties"));
-		String driver = prop.getProperty("driver");
-		String url = prop.getProperty("url");
-		String id = prop.getProperty("user");
-		String pass = prop.getProperty("passwd");
-		
-		Class.forName(driver);
-//		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "kdu", "kdu"); //url 사용자계정 pw순
-		conn = DriverManager.getConnection(url,id,pass);
+//		Properties prop = new Properties();
+//		prop.load(new FileReader("C:/Temp/database.properties"));
+//		String driver = prop.getProperty("driver");
+//		String url = prop.getProperty("url");
+//		String id = prop.getProperty("user");
+//		String pass = prop.getProperty("passwd");
+//		
+//		Class.forName(driver);
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "kdu", "kdu"); //url 사용자계정 pw순
+//		conn = DriverManager.getConnection(url,id,pass);
 		System.out.println("연결 성공");
 	}catch(Exception e) {
 		System.out.println("연결 실패");
